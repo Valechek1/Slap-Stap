@@ -1,2 +1,2 @@
 # SlapStep
-Developing a SlepStep Application.
+Developing a SlapStep Application.
