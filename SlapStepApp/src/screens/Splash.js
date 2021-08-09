@@ -10,7 +10,7 @@ const WrapperView = styled.View`
   justify-content: center;
 `;
 
-export default () => {
+const Splash = () => {
   return (
     <WrapperView>
       <Text>Splash Screen</Text>
@@ -18,4 +18,4 @@ export default () => {
   );
 };
 
-// export default Splash;
+export default Splash;
