@@ -11,8 +11,6 @@ CREATE Table Users (
 );
 CREATE Table Authorization (
   id INT PRIMARY KEY AUTO_INCREMENT,
-  login_user VARCHAR(50) NOT NULL,
-  password_user VARCHAR(250),
   phone VARCHAR(20) NOT NULL,
   code INT
 );
