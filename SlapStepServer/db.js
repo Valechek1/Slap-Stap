@@ -14,3 +14,5 @@ connection.connect((err) => {
   }
   console.log("Подключено....");
 });
+
+module.exports = {};
