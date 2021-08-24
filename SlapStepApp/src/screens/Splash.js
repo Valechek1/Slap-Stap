@@ -1,7 +1,6 @@
-// In App.js in a new project
-
+import { useNavigation } from "@react-navigation/native";
 import * as React from "react";
-import { Text } from "react-native";
+import { Button, Text } from "react-native";
 import styled from "styled-components/native";
 
 const WrapperView = styled.View`
@@ -11,9 +10,15 @@ const WrapperView = styled.View`
 `;
 
 const Splash = () => {
+  const navigation = useNavigation();
+
+  React.useEffect(() => {
+    navigation.navigate("Login");
+  }, [navigation]);
+
   return (
     <WrapperView>
-      <Text>Splash Screen</Text>
+      <Text>Screen</Text>
     </WrapperView>
   );
 };
