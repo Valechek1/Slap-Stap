@@ -42,7 +42,6 @@ const getAuthPair = (phone, code) => {
           reject(err);
           return;
         }
-
         if (data.length > 0) {
           resolve();
         } else {
@@ -71,7 +70,6 @@ const createUserTokenPair = (userId, token) => {
             if (err) {
               return reject(err);
             }
-
             return resolve();
           }
         );
@@ -79,6 +77,7 @@ const createUserTokenPair = (userId, token) => {
     );
   });
 };
+
 const createOrGetUser = (phone, token) => {
   return new Promise((resolve, reject) => {
     connection.query(
@@ -88,7 +87,6 @@ const createOrGetUser = (phone, token) => {
         if (err) {
           return reject(err);
         }
-
         if (data.length > 0) {
           createUserTokenPair(data[0].id, token)
             .then(() => {
