@@ -7,7 +7,7 @@ CREATE Table Users (
   id INT PRIMARY KEY AUTO_INCREMENT,
   phone VARCHAR(20) NOT NULL,
   name_user VARCHAR(50),
-  age INT,
+  age INT
 );
 CREATE Table Authorization (
   id INT PRIMARY KEY AUTO_INCREMENT,
