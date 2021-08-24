@@ -5,13 +5,11 @@ drop table Authorization;
 drop table Token;
 CREATE Table Users (
   id INT PRIMARY KEY AUTO_INCREMENT,
-  phone VARCHAR(20) NOT NULL,
-  name_user VARCHAR(50),
-  age INT,
+  phone VARCHAR(20) NOT NULL
 );
 CREATE Table Authorization (
   id INT PRIMARY KEY AUTO_INCREMENT,
-  time_stamp DATETIME NOT NULL,
+  -- time_stamp DATETIME NOT NULL,
   phone VARCHAR(20) NOT NULL,
   code INT NOT NULL
 );
