@@ -1,4 +1,4 @@
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import * as React from "react";
 import { Text } from "react-native";
 import styled from "styled-components/native";
@@ -10,9 +10,14 @@ const WrapperView = styled.View`
 `;
 
 const LoginCode = () => {
+  // TODO Get phone number from route params
+  const route = useRoute();
+  const { phone } = route.params;
+
   return (
     <WrapperView>
       <Text>Третий Экран</Text>
+      <Text>{phone}</Text>
     </WrapperView>
   );
 };
