@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
 import * as React from "react";
-import { Button, Text } from "react-native";
+import { Button } from "react-native";
 import styled from "styled-components/native";
 
 const WrapperView = styled.View`
@@ -18,7 +18,10 @@ const Splash = () => {
 
   return (
     <WrapperView>
-      <Text>Screen</Text>
+      <Button
+        title="Переход на Login"
+        onPress={() => navigation.navigate("Login", { name: "Splash" })}
+      />
     </WrapperView>
   );
 };
