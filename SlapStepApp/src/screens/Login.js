@@ -9,21 +9,16 @@ const WrapperView = styled.View`
   justify-content: center;
 `;
 
-const Splash = () => {
+const Login = () => {
   const navigation = useNavigation();
-
-  React.useEffect(() => {
-    navigation.navigate("Login");
-  }, [navigation]);
-
   return (
     <WrapperView>
       <Button
-        title="Переход на Login"
-        onPress={() => navigation.navigate("Login", { name: "Splash" })}
+        title="Переход на LoginCode"
+        onPress={() => navigation.navigate("LoginCode", { name: "LoginCode" })}
       />
     </WrapperView>
   );
 };
 
-export default Splash;
+export default Login;

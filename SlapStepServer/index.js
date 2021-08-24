@@ -1,11 +1,64 @@
 const express = require("express");
 const cors = require("cors");
+const uuid = require("uuid");
 const bcrypt = require("bcrypt");
+const db = require("./db");
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+const generateRandomCode = () => {
+  return 12345;
+};
+
+const generateToken = () => {
+  return uuid.v4();
+};
+const sendSMS = (phone, code) => {
+  console.log(phone, code);
+};
+
+app.post("/authorisation", (req, res) => {
+  const { phone } = req.body;
+  // console.log(phone);
+  const code = generateRandomCode();
+  db.savePhoneCodeToDB(phone, code)
+    .then(() => {
+      sendSMS(phone, code);
+      res.json();
+    })
+    .catch((err) => {
+      res.status(500).json(err);
+    });
+});
+
+// app.get("/Users", (req, res) => {
+//   db.getUsers().then((data) => {
+//     console.log(data);
+//   });
+//   res.json();
+// });
+
+app.post("/endAuth", (req, res) => {
+  const { phone, code } = req.body;
+  console.log("Это телефон=", phone);
+  console.log("Это код=", code);
+  db.getAuthPair(phone, code)
+    .then(() => {
+      const token = generateToken();
+      db.createOrGetUser(phone, token).then((user) => {
+        res.json({
+          user,
+          token,
+        });
+      });
+    })
+    .catch((err) => {
+      res.status(401).json(err);
+    });
+});
 
 app.listen(4000, () => {
   console.log("Сервер запущен на 4000");
