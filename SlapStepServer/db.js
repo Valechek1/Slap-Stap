@@ -79,6 +79,7 @@ const createUserTokenPair = (userId, token) => {
     );
   });
 };
+
 const createOrGetUser = (phone, token) => {
   return new Promise((resolve, reject) => {
     connection.query(
