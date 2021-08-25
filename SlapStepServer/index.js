@@ -10,11 +10,13 @@ app.use(express.urlencoded({ extended: true }));
 
 app.post("/authorisation", (req, res) => {
   const { phone } = req.body;
+  const formattedPhone = utils.reformatPhone(phone);
+
   // console.log(phone);
-  const code = utils.generateRandomCode(phone);
-  db.savePhoneCodeToDB(phone, code)
+  const code = utils.generateRandomCode(formattedPhone);
+  db.savePhoneCodeToDB(formattedPhone, code)
     .then(() => {
-      utils.sendSMS(phone, code);
+      utils.sendSMS(formattedPhone, code);
       res.json();
     })
     .catch((err) => {
@@ -31,12 +33,14 @@ app.post("/authorisation", (req, res) => {
 
 app.post("/endAuth", (req, res) => {
   const { phone, code } = req.body;
-  console.log("Это телефон=", phone);
+  const formattedPhone = utils.reformatPhone(phone);
+
+  console.log("Это телефон=", formattedPhone);
   console.log("Это код=", code);
-  db.getAuthPair(phone, code)
+  db.getAuthPair(formattedPhone, code)
     .then(() => {
       const token = utils.generateToken();
-      db.createOrGetUser(phone, token).then((user) => {
+      db.createOrGetUser(formattedPhone, token).then((user) => {
         res.json({
           user,
           token,

@@ -8,6 +8,10 @@ const TEST_NUMBERS = process.env.TEST_NUMBERS
 
 let twilioClient;
 
+const reformatPhone = (phone) => {
+  return "+" + phone.replace(/[^\d]/g, "");
+};
+
 const getSMSClient = () => {
   if (twilioClient) {
     return twilioClient;
@@ -53,4 +57,5 @@ module.exports = {
   generateRandomCode,
   generateToken,
   sendSMS,
+  reformatPhone,
 };
