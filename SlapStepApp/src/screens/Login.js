@@ -46,8 +46,8 @@ const Login = () => {
       <PhoneInput
         value={phone}
         keyboardType="number-pad"
-        onChangeText={setPhone}
-        placeholder="Phone here"
+        onChangeText={(v) => setPhone(v)}
+        placeholder="Введите номер телефона"
       />
       {error && <ErrorText>ERROR: {error.message}</ErrorText>}
       <Button title="Login" onPress={handleClick} />

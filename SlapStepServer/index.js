@@ -1,7 +1,6 @@
 const express = require("express");
 const cors = require("cors");
 const uuid = require("uuid");
-const bcrypt = require("bcrypt");
 const db = require("./db");
 
 const app = express();
@@ -22,7 +21,6 @@ const sendSMS = (phone, code) => {
 
 app.post("/authorisation", (req, res) => {
   const { phone } = req.body;
-  // console.log(phone);
   const code = generateRandomCode();
   db.savePhoneCodeToDB(phone, code)
     .then(() => {
@@ -33,13 +31,6 @@ app.post("/authorisation", (req, res) => {
       res.status(500).json(err);
     });
 });
-
-// app.get("/Users", (req, res) => {
-//   db.getUsers().then((data) => {
-//     console.log(data);
-//   });
-//   res.json();
-// });
 
 app.post("/endAuth", (req, res) => {
   const { phone, code } = req.body;

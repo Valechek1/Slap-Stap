@@ -16,5 +16,28 @@ export const startAuth = async (phone) => {
     return null;
   }
 
-  throw new Error("Unauthorized");
+  throw new Error("Unauthorized User");
 };
+
+export const endAuth = async (phone, code) => {
+    console.log(phone, code);
+    const response = await fetch(`${HOST}/endAuth`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        phone,
+        code,
+      }),
+    });
+  
+    if (response.status === 200) {
+      return null;
+    }
+  
+    throw new Error("Unsuccessful registration");
+  };
+  
+
+
