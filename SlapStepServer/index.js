@@ -51,6 +51,28 @@ app.post("/endAuth", (req, res) => {
     });
 });
 
+const getAuthorizedUser = async (req) => {
+  const token = req.get('Authorization');
+
+  if (!token) {
+    res.status(401).json()
+    return
+  };
+
+  const user = await db.getUserByToken(token);
+  return user;
+};
+
+app.post("/steps", (req,res)=>{
+  const { steps, timestamp } = req.body;
+
+  getAuthorizedUser(req).then((user) => {
+    return db.storeStepsForUser(user.id, steps,timestamp)
+  }).then(()=>{
+    res.json();
+  }).catch((err) => res.status(401).json(err));
+});
+
 app.listen(4000, () => {
   console.log("Сервер запущен на 4000");
 });

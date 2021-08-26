@@ -78,6 +78,68 @@ const createUserTokenPair = (userId, token) => {
   });
 };
 
+const getUserByToken = (token) => {
+  return new Promise((resolve, reject) => {
+    connection.query(`SELECT * FROM Token where token = ?`, [token], (err, data) => {
+      if (err) {
+        return reject(err)
+      }
+      if (data.length === 0) {
+        return reject(new Error('Unauthorized'))
+      }
+      connection.query('SELECT * FROM Users WHERE id = ?', [data[0].id_user], (err, users) => {
+        if (err) {
+          return reject(err)
+        }
+        if (users.length === 0) {
+          return reject(new Error('Unauthorized'))
+        }
+        resolve(users[0]);
+      })
+    })
+  })
+}
+const storeStepsForUser = (userId, steps,timestamp) =>{
+  return new Promise((resolve,reject)=>{
+    connection.query(
+      "SELECT * FROM Steps WHERE id_user = ? AND date_stamp = ?",
+      [userId, timestamp],
+      (err, data) => {
+        if (err) {
+          reject(err);
+          return;
+        }
+
+        if (data.length === 0) {
+          // записей для данного юзера в данный день не было
+          connection.query(
+            `INSERT INTO Steps (id_user, steps, date_stamp) VALUES (?, ?, ?);`
+            [userId, steps, timestamp],
+            (err) => {
+              if (err) {
+                reject(err);
+                return;
+              }
+              return resolve()
+            })
+        } else {
+          // записей для данного юзера в данный день были и надо обновит
+          connection.query(
+            "UPDATE Steps SET steps = ? WHERE id = ?;",
+            [steps, data[0].id],
+            (err) => {
+              if (err) {
+                reject(err);
+                return;
+              }
+              return resolve()
+            })
+        }
+      }
+    )
+    
+  })
+}
 const createOrGetUser = (phone, token) => {
   return new Promise((resolve, reject) => {
     connection.query(
@@ -148,4 +210,6 @@ module.exports = {
   createOrGetUser,
   getUsers,
   getAuthPair,
+  getUserByToken,
+  storeStepsForUser,
 };
