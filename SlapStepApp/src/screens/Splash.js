@@ -1,12 +1,13 @@
 import { useNavigation } from "@react-navigation/native";
 import * as React from "react";
-import { Image, StyleSheet, View } from "react-native";
+import { Image, StyleSheet, Text, View } from "react-native";
+import Button from "../components/Button";
 
 const Splash = () => {
   const navigation = useNavigation();
 
-  React.useEffect(() => {
-    let hasToken = false;
+  const handleClick = React.useCallback(() => {
+    let hasToken = true;
     if (hasToken) {
       navigation.navigate("Home");
     } else {
@@ -16,7 +17,11 @@ const Splash = () => {
 
   return (
     <View style={styles.box}>
-      <Image source={require("../../assets/SlapStep.png")} style={styles.img} />
+      <Image
+        source={require("../../assets/SlapStepLOGO.png")}
+        style={styles.img}
+      />
+      <Button handleClick={handleClick} />
     </View>
   );
 };
@@ -26,6 +31,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    marginTop: 150,
   },
   img: {
     width: 300,
