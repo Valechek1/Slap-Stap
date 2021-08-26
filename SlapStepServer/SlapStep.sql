@@ -18,6 +18,13 @@ CREATE Table Token (
   token VARCHAR(255) NOT NULL,
   id_user INT
 );
+CREATE Table Steps (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  id_user INT,
+  steps INT,
+  date_stamp DATE
+);
+
 SELECT
   *
 FROM
@@ -30,3 +37,7 @@ SELECT
   *
 FROM
   Token;
+SELECT 
+  *
+FROM
+  StepCount;
