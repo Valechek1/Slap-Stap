@@ -1,51 +1,32 @@
 import { useNavigation } from "@react-navigation/native";
 import * as React from "react";
-import { Button, Text, StyleSheet, SafeAreaView } from "react-native";
+import { Button } from "react-native";
 import styled from "styled-components/native";
 import { startAuth } from "../api";
-import {
-  CodeField,
-  Cursor,
-  useBlurOnFulfill,
-  useClearByFocusCell,
-} from "react-native-confirmation-code-field";
 
-const styles = StyleSheet.create({
-  root: {
-    flex: 1,
-    padding: 20,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  title: { textAlign: "center", fontSize: 30 },
-  codeFieldRoot: { marginTop: 20 },
-  cell: {
-    width: 25,
-    height: 25,
-    lineHeight: 38,
-    fontSize: 19,
-    borderWidth: 1,
-    borderRadius: 10,
-    borderColor: "#00000030",
-    textAlign: "center",
-    paddingBottom: 40,
-    marginLeft: 5,
-  },
-  focusCell: {
-    borderColor: "#000",
-  },
-});
+const Wrapper = styled.SafeAreaView`
+  flex: 1;
+  padding: 20px;
+  justify-content: flex-start;
+`;
 
-const CELL_COUNT = 11;
+const PhoneInput = styled.TextInput`
+  margin: 24px;
+  margin-bottom: 12px;
+  padding: 12px;
+  width: 90%;
+  border: 1px solid black;
+  border-radius: 6px;
+`;
+
+const ErrorText = styled.Text`
+  margin-horizontal: 24px;
+  padding: 12px;
+  margin-bottom: 24px;
+  color: red;
+`;
 
 const Login = () => {
-  const [value, setValue] = React.useState("");
-  const ref = useBlurOnFulfill({ value, cellCount: CELL_COUNT });
-  const [props, getCellOnLayoutHandler] = useClearByFocusCell({
-    value,
-    setValue,
-  });
-
   const navigation = useNavigation();
   const [phone, setPhone] = React.useState("");
   const [error, setError] = React.useState();
@@ -61,31 +42,16 @@ const Login = () => {
   }, [phone]);
 
   return (
-    <SafeAreaView style={styles.root}>
-      <CodeField
-        ref={ref}
-        {...props}
+    <Wrapper>
+      <PhoneInput
         value={phone}
-        onChangeText={setValue}
-        cellCount={CELL_COUNT}
-        rootStyle={styles.codeFieldRoot}
         keyboardType="number-pad"
-        textContentType="oneTimeCode"
-        onChangeText={(v) => setPhone(v)}
+        onChangeText={setPhone}
         placeholder="Phone here"
-        renderCell={({ index, symbol, isFocused }) => (
-          <Text
-            key={index}
-            style={[styles.cell, isFocused && styles.focusCell]}
-            onLayout={getCellOnLayoutHandler(index)}
-          >
-            {symbol || (isFocused ? <Cursor /> : null)}
-          </Text>
-        )}
       />
-      {error && <Text>ERROR: {error.message}</Text>}
+      {error && <ErrorText>ERROR: {error.message}</ErrorText>}
       <Button title="Login" onPress={handleClick} />
-    </SafeAreaView>
+    </Wrapper>
   );
 };
 

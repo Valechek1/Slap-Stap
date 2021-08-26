@@ -1,4 +1,3 @@
-import { useNavigation, useRoute } from "@react-navigation/native";
 import * as React from "react";
 import { Text, SafeAreaView, StyleSheet } from "react-native";
 
@@ -47,7 +46,7 @@ const LoginCode = () => {
 
   return (
     <SafeAreaView style={styles.root}>
-      <Text style={styles.title}>Verification</Text>
+      <Text style={styles.title}>Verification code</Text>
       <CodeField
         ref={ref}
         {...props}
