@@ -9,7 +9,7 @@ const Splash = () => {
   const navigation = useNavigation();
 
   const handleClick = React.useCallback(() => {
-    let hasToken = true;
+    let hasToken = false;
     if (hasToken) {
       navigation.navigate("Home");
     } else {

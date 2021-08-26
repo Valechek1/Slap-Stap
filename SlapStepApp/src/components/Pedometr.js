@@ -45,14 +45,32 @@ export default function Pedometr() {
   }, []);
 
   return (
-    <View>
+    <View style={styles.boxPedometr}>
       {isPedometerAvailable === undefined && (
-        <Text>Waiting for permissions</Text>
+        <Text style={styles.text}>Waiting for permissions</Text>
       )}
       {isPedometerAvailable === false && (
-        <Text>Проблемы с получением инфы по шагам</Text>
+        <Text style={styles.text}>Проблемы с получением инфы по шагам</Text>
       )}
-      <Text>Number of steps {currentStepCount}</Text>
+      <Text style={styles.text}>Number of steps {currentStepCount}</Text>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  text: {
+    fontSize: 20,
+    margin: 5,
+    fontWeight: "600",
+    letterSpacing: 1.5,
+  },
+  boxPedometr: {
+    flexDirection: "row",
+    marginTop: 20,
+    justifyContent: "space-around",
+    alignItems: "center",
+    backgroundColor: "#32cd32",
+    width: "90%",
+    borderRadius: 10,
+  },
+});

@@ -6,17 +6,16 @@ import Weather from "../components/Weather";
 export default function Home() {
   return (
     <View style={styles.container}>
-      <Pedometr />
       <Weather />
+      <Pedometr />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: "#fff",
+    flex: 2,
+    backgroundColor: "green",
     alignItems: "center",
-    justifyContent: "center",
   },
 });
