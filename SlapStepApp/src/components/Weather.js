@@ -29,26 +29,27 @@ export default function Weather() {
   }, []);
 
   const styles = StyleSheet.create({
-    boxWeather: {
-      flex: 1,
-      backgroundColor: "#32cd32",
-      width: "95%",
-      borderRadius: 10,
-      alignItems: "center",
-      justifyContent: "center",
-    },
     text: {
       fontSize: 20,
       margin: 5,
       fontWeight: "600",
       letterSpacing: 1.5,
     },
+    boxWeather: {
+      flexDirection: "row",
+      marginTop: 20,
+      justifyContent: "space-around",
+      alignItems: "center",
+      backgroundColor: "#32cd32",
+      width: "90%",
+      borderRadius: 10,
+    },
   });
 
   return (
-    <View style={styles.boxWeather}>
+    <View>
       {dataWeather && (
-        <View>
+        <View style={styles.boxWeather}>
           <Text style={styles.text}>{dataWeather.name}</Text>
           <Image
             style={{ width: 100, height: 100 }}
