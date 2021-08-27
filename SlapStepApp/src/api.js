@@ -1,15 +1,13 @@
-const HOST = "https://mean-fly-64.loca.lt";
+const HOST = "https://nice-shrimp-54.loca.lt";
+const API_KEY = "bd06a8223a71d916a111c9dc6b6eb29a";
 
 export const startAuth = async (phone) => {
-  console.log(phone);
   const response = await fetch(`${HOST}/authorisation`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({
-      phone,
-    }),
+    body: JSON.stringify({ phone }),
   });
 
   if (response.status === 200) {
@@ -37,4 +35,12 @@ export const endAuth = async (phone, code) => {
   }
 
   throw new Error("Unsuccessful registration");
+};
+
+export const getWeatherAPI = async () => {
+  const api_URL = await fetch(
+    `https://api.openweathermap.org/data/2.5/weather?q=Moscow&appid=${API_KEY}`
+  );
+  const data = await api_URL.json();
+  return data;
 };

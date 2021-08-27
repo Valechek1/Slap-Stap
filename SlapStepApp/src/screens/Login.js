@@ -55,5 +55,4 @@ const Login = (props) => {
     </Wrapper>
   );
 };
-
 export default Login;

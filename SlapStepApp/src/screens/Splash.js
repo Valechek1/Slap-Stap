@@ -4,8 +4,6 @@ import { Image, StyleSheet, View } from "react-native";
 import Button from "../components/Button";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-// стартовая страница
-
 const Splash = () => {
   const navigation = useNavigation();
 
