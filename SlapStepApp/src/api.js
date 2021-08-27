@@ -1,4 +1,4 @@
-const HOST = "https://nice-shrimp-54.loca.lt";
+const HOST = "https://5f3a-89-208-20-134.ngrok.io";
 const API_KEY = "bd06a8223a71d916a111c9dc6b6eb29a";
 
 export const startAuth = async (phone) => {

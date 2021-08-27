@@ -4,29 +4,6 @@ import styled from "styled-components/native";
 import { startAuth } from "../api";
 import Button from "../components/Button";
 
-const Wrapper = styled.SafeAreaView`
-  flex: 1;
-  padding: 20px;
-  justify-content: flex-start;
-  align-items: center;
-`;
-
-const PhoneInput = styled.TextInput`
-  margin: 24px;
-  margin-bottom: 12px;
-  padding: 12px;
-  width: 90%;
-  border: 1px solid black;
-  border-radius: 6px;
-`;
-
-const ErrorText = styled.Text`
-  margin-horizontal: 24px;
-  padding: 12px;
-  margin-bottom: 24px;
-  color: red;
-`;
-
 const Login = (props) => {
   const navigation = useNavigation();
   const [phone, setPhone] = React.useState("");
@@ -55,4 +32,28 @@ const Login = (props) => {
     </Wrapper>
   );
 };
+
+const Wrapper = styled.SafeAreaView`
+  flex: 1;
+  padding: 20px;
+  justify-content: flex-start;
+  align-items: center;
+`;
+
+const PhoneInput = styled.TextInput`
+  margin: 24px;
+  margin-bottom: 12px;
+  padding: 12px;
+  width: 90%;
+  border: 1px solid black;
+  border-radius: 6px;
+`;
+
+const ErrorText = styled.Text`
+  margin-horizontal: 24px;
+  padding: 12px;
+  margin-bottom: 24px;
+  color: red;
+`;
+
 export default Login;

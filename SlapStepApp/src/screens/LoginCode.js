@@ -10,32 +10,6 @@ import {
   useClearByFocusCell,
 } from "react-native-confirmation-code-field";
 
-const styles = StyleSheet.create({
-  root: {
-    flex: 1,
-    padding: 20,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  title: { textAlign: "center", fontSize: 30 },
-  codeFieldRoot: { marginTop: 20 },
-  cell: {
-    width: 50,
-    height: 50,
-    lineHeight: 38,
-    fontSize: 24,
-    borderWidth: 2,
-    borderRadius: 10,
-    borderColor: "#00000030",
-    textAlign: "center",
-    marginLeft: 5,
-    paddingTop: 3,
-  },
-  focusCell: {
-    borderColor: "#000",
-  },
-});
-
 const CELL_COUNT = 5;
 
 const LoginCode = () => {
@@ -51,7 +25,7 @@ const LoginCode = () => {
   const onCodeInput = (code) => {
     setValue(code);
     if (code.length === CELL_COUNT) {
-      fetch("https://mean-fly-64.loca.lt/endAuth", {
+      fetch("https://5f3a-89-208-20-134.ngrok.io/endAuth", {
         method: "POST",
         headers: {
           "Content-type": "application/json",
@@ -104,5 +78,31 @@ const LoginCode = () => {
     </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  root: {
+    flex: 1,
+    padding: 20,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  title: { textAlign: "center", fontSize: 30 },
+  codeFieldRoot: { marginTop: 20 },
+  cell: {
+    width: 50,
+    height: 50,
+    lineHeight: 38,
+    fontSize: 24,
+    borderWidth: 2,
+    borderRadius: 10,
+    borderColor: "#00000030",
+    textAlign: "center",
+    marginLeft: 5,
+    paddingTop: 3,
+  },
+  focusCell: {
+    borderColor: "#000",
+  },
+});
 
 export default LoginCode;
