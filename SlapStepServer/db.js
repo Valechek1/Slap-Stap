@@ -121,9 +121,8 @@ const storeStepsForUser = (userId, steps, timestamp) => {
         if (data.length === 0) {
           // записей для данного юзера в данный день не было
           connection.query(
-            `INSERT INTO Steps (id_user, steps, date_stamp) VALUES (?, ?, ?);`[
-              (userId, steps, timestamp)
-            ],
+            `INSERT INTO Steps (id_user, steps, date_stamp) VALUES (?, ?, ?);`,
+            [userId, steps, timestamp],
             (err) => {
               if (err) {
                 reject(err);
@@ -203,6 +202,23 @@ const createOrGetUser = (phone, token) => {
   });
 };
 
+const getTopSteps = (amount) =>{
+  return new Promise ((resolve,reject)=>{
+    connection.query(`
+      SELECT * from Steps
+      WHERE date_stamp = CURRENT_DATE()
+      ORDER BY steps DESC
+      LIMIT ?
+    `, [amount],(err,data) => {
+      if(err){
+        reject (err);
+        return
+      }
+      resolve(data)
+    });
+  });
+};
+
 const getUsers = () => {
   return new Promise((resolve, reject) => {
     connection.query("SELECT * FROM Users", (err, data) => {
@@ -221,5 +237,6 @@ module.exports = {
   getUsers,
   getAuthPair,
   getUserByToken,
+  getTopSteps,
   storeStepsForUser,
 };

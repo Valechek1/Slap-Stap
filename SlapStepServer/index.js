@@ -32,6 +32,20 @@ app.post("/authorisation", (req, res) => {
     });
 });
 
+app.get("/steps/top",(req,res)=>{
+  getAuthorizedUser(req)
+    .then((user) => {
+      const amount = parseInt(req.query.amount || 10);
+      db.getTopSteps(amount)
+        .then((data) => {
+          res.json(data)
+        }).catch((err) => {
+          console.log(err)
+          res.status(500).json(err);
+        });
+    }).catch((err) => res.status(401).json(err));
+})
+
 app.post("/endAuth", (req, res) => {
   const { phone, code } = req.body;
   console.log("Это телефон=", phone);
@@ -56,9 +70,9 @@ const getAuthorizedUser = async (req) => {
   const token = req.get("Authorization");
 
   if (!token) {
-    res.status(401).json();
-    return;
-  }
+    res.status(401).json()
+    throw new Error('Unauthorized')
+  };
 
   const user = await db.getUserByToken(token);
   return user;
@@ -67,14 +81,11 @@ const getAuthorizedUser = async (req) => {
 app.post("/steps", (req, res) => {
   const { steps, timestamp } = req.body;
 
-  getAuthorizedUser(req)
-    .then((user) => {
-      return db.storeStepsForUser(user.id, steps, timestamp);
-    })
-    .then(() => {
-      res.json();
-    })
-    .catch((err) => res.status(401).json(err));
+  getAuthorizedUser(req).then((user) => {
+    return db.storeStepsForUser(user.id, steps, timestamp)
+  }).then(()=>{
+    res.json();
+  }).catch((err) => res.status(401).json(err));
 });
 
 app.listen(4000, () => {
