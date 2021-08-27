@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Text, View } from "react-native";
+import { Text, View, StyleSheet } from "react-native";
 import { Pedometer } from "expo-sensors";
 
 export default function Pedometr() {
@@ -8,7 +8,7 @@ export default function Pedometr() {
   const [currentStepCount, setCurrentStepCount] = useState(0);
 
   useEffect(() => {
-    let timeoutId;
+    let intervalId;
     const startOfTheDay = new Date();
     startOfTheDay.setHours(0);
     startOfTheDay.setMinutes(0);
@@ -28,7 +28,7 @@ export default function Pedometr() {
         const { steps } = result;
         setCurrentStepCount(steps);
 
-        timeoutId = setTimeout(() => {
+        intervalId = setInterval(() => {
           Pedometer.getStepCountAsync(startOfTheDay, new Date()).then(
             ({ steps }) => {
               setCurrentStepCount(steps);
@@ -38,8 +38,8 @@ export default function Pedometr() {
       });
 
     return () => {
-      if (timeoutId) {
-        clearTimeout(timeoutId);
+      if (intervalId) {
+        clearInterval(intervalId);
       }
     };
   }, []);
