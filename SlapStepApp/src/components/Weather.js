@@ -105,21 +105,3 @@ export default function Weather() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  text: {
-    fontSize: 20,
-    margin: 5,
-    fontWeight: "600",
-    letterSpacing: 1.5,
-  },
-  boxWeather: {
-    flexDirection: "row",
-    marginTop: 20,
-    justifyContent: "space-around",
-    alignItems: "center",
-    backgroundColor: "#32cd32",
-    width: "90%",
-    borderRadius: 10,
-  },
-});

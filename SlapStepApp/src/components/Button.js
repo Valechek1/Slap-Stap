@@ -38,13 +38,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function Button(props) {
-  return (
-    <View style={styles.box}>
-      <TouchableOpacity onPress={props.handleClick} style={styles.appButtonContainer}>
-        <Text style={styles.appButtonText}>Registration</Text>
-      </TouchableOpacity>
-    </View>
-  );
-}
 
