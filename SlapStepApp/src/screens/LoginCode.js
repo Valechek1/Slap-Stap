@@ -1,5 +1,7 @@
+import { useNavigation, useRoute } from "@react-navigation/native";
 import * as React from "react";
 import { Text, SafeAreaView, StyleSheet } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import {
   CodeField,
@@ -34,24 +36,57 @@ const styles = StyleSheet.create({
   },
 });
 
-const CELL_COUNT = 4;
+const CELL_COUNT = 5;
 
 const LoginCode = () => {
+  const { params } = useRoute();
+  const navigation = useNavigation();
   const [value, setValue] = React.useState("");
   const ref = useBlurOnFulfill({ value, cellCount: CELL_COUNT });
-  const [props, getCellOnLayoutHandler] = useClearByFocusCell({
+  const [codeProps, getCellOnLayoutHandler] = useClearByFocusCell({
     value,
     setValue,
   });
+
+  const onCodeInput = (code) => {
+    setValue(code);
+    if (code.length === CELL_COUNT) {
+      fetch("https://mean-fly-64.loca.lt/endAuth", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({ code, phone: params.phone }),
+      })
+        .then((res) => {
+          if (res.status !== 200) {
+            throw new Error("We fucked up");
+          }
+          return res.json();
+        })
+        .then(({ token }) => {
+          return AsyncStorage.setItem("token", token);
+        })
+        .then(() => {
+          navigation.reset({
+            index: 0,
+            routes: [{ name: "Home" }],
+          });
+        })
+        .catch(() => {
+          navigation.goBack();
+        });
+    }
+  };
 
   return (
     <SafeAreaView style={styles.root}>
       <Text style={styles.title}>Verification code</Text>
       <CodeField
         ref={ref}
-        {...props}
+        {...codeProps}
         value={value}
-        onChangeText={setValue}
+        onChangeText={onCodeInput}
         cellCount={CELL_COUNT}
         rootStyle={styles.codeFieldRoot}
         keyboardType="number-pad"

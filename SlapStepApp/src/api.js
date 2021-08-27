@@ -1,4 +1,4 @@
-const HOST = "https://dull-bobcat-60.loca.lt";
+const HOST = "https://mean-fly-64.loca.lt";
 
 export const startAuth = async (phone) => {
   console.log(phone);
