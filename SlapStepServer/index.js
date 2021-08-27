@@ -47,30 +47,34 @@ app.post("/endAuth", (req, res) => {
       });
     })
     .catch((err) => {
+      console.log(err);
       res.status(401).json(err);
     });
 });
 
 const getAuthorizedUser = async (req) => {
-  const token = req.get('Authorization');
+  const token = req.get("Authorization");
 
   if (!token) {
-    res.status(401).json()
-    return
-  };
+    res.status(401).json();
+    return;
+  }
 
   const user = await db.getUserByToken(token);
   return user;
 };
 
-app.post("/steps", (req,res)=>{
+app.post("/steps", (req, res) => {
   const { steps, timestamp } = req.body;
 
-  getAuthorizedUser(req).then((user) => {
-    return db.storeStepsForUser(user.id, steps,timestamp)
-  }).then(()=>{
-    res.json();
-  }).catch((err) => res.status(401).json(err));
+  getAuthorizedUser(req)
+    .then((user) => {
+      return db.storeStepsForUser(user.id, steps, timestamp);
+    })
+    .then(() => {
+      res.json();
+    })
+    .catch((err) => res.status(401).json(err));
 });
 
 app.listen(4000, () => {

@@ -24,7 +24,6 @@ CREATE Table Steps (
   steps INT,
   date_stamp DATE
 );
-
 SELECT
   *
 FROM
@@ -37,7 +36,7 @@ SELECT
   *
 FROM
   Token;
-SELECT 
+SELECT
   *
 FROM
-  StepCount;
+  Steps;

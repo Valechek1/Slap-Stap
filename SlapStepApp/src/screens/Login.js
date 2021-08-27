@@ -1,13 +1,14 @@
 import { useNavigation } from "@react-navigation/native";
 import * as React from "react";
-import { Button } from "react-native";
 import styled from "styled-components/native";
 import { startAuth } from "../api";
+import Button from "../components/Button";
 
 const Wrapper = styled.SafeAreaView`
   flex: 1;
   padding: 20px;
   justify-content: flex-start;
+  align-items: center;
 `;
 
 const PhoneInput = styled.TextInput`
@@ -26,7 +27,7 @@ const ErrorText = styled.Text`
   color: red;
 `;
 
-const Login = () => {
+const Login = (props) => {
   const navigation = useNavigation();
   const [phone, setPhone] = React.useState("");
   const [error, setError] = React.useState();
@@ -50,7 +51,7 @@ const Login = () => {
         placeholder="Введите номер телефона"
       />
       {error && <ErrorText>ERROR: {error.message}</ErrorText>}
-      <Button title="Login" onPress={handleClick} />
+      <Button title="Login" handleClick={handleClick} disabled={!phone} />
     </Wrapper>
   );
 };
