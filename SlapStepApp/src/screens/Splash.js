@@ -8,6 +8,7 @@ const Splash = () => {
   const navigation = useNavigation();
 
   React.useEffect(() => {
+    // AsyncStorage.clear();
     AsyncStorage.getItem("token")
       .then((token) => {
         if (token) {
@@ -46,11 +47,16 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: "#3a4257",
   },
   img: {
     width: 300,
     height: 300,
     marginBottom: 100,
+    shadowColor: "#000000",
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.9,
+    shadowRadius: 3,
   },
 });
 

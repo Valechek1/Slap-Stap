@@ -1,4 +1,4 @@
-const HOST = "https://5f3a-89-208-20-134.ngrok.io";
+const HOST = "https://832d-89-208-20-134.ngrok.io";
 const API_KEY = "bd06a8223a71d916a111c9dc6b6eb29a";
 
 export const startAuth = async (phone) => {
@@ -42,5 +42,6 @@ export const getWeatherAPI = async () => {
     `https://api.openweathermap.org/data/2.5/weather?q=Moscow&appid=${API_KEY}`
   );
   const data = await api_URL.json();
+  console.log(data);
   return data;
 };

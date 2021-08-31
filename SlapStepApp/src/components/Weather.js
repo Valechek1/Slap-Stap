@@ -53,8 +53,8 @@ export default function Weather() {
   return (
     <View>
       {dataWeather && (
-        <View style={styles.boxWeather}>
-          <View style={styles.boxWeatherRow}>
+        <>
+          <View style={styles.boxWeather}>
             <Text style={styles.text}>{dataWeather.name}</Text>
             <Image
               style={{ width: 100, height: 100 }}
@@ -66,10 +66,12 @@ export default function Weather() {
               {(dataWeather.main.temp - 273).toFixed()}°С
             </Text>
           </View>
-          <Text style={styles.textMessage}>
-            {getWeatherCustomStatus(dataWeather)}
-          </Text>
-        </View>
+          <View>
+            <Text style={styles.textMessage}>
+              {getWeatherCustomStatus(dataWeather)}
+            </Text>
+          </View>
+        </>
       )}
     </View>
   );
@@ -83,20 +85,17 @@ const styles = StyleSheet.create({
     letterSpacing: 1.5,
   },
   boxWeather: {
-    marginTop: 20,
+    flexDirection: "row",
+    marginTop: 40,
     justifyContent: "space-around",
     alignItems: "center",
-    backgroundColor: "#32CD32",
+    backgroundColor: "#F0DDBC",
     width: "90%",
     borderRadius: 10,
-    shadowColor: "#708090",
-    shadowOffset: {
-      width: 0,
-      height: 6,
-    },
-    shadowOpacity: 0.39,
-    shadowRadius: 8.3,
-    elevation: 13,
+    shadowColor: "black",
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.8,
+    shadowRadius: 5,
   },
   textMessage: {
     fontWeight: "600",
@@ -104,6 +103,9 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     marginTop: 20,
     marginBottom: 20,
+    fontSize: 14,
+    textAlign: "center",
+    color: "#ebbe40",
   },
   boxWeatherRow: {
     flexDirection: "row",
