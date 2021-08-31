@@ -1,6 +1,6 @@
 import React from "react";
 import Pedometr from "../components/Pedometr";
-import { StyleSheet, View } from "react-native";
+import { View } from "react-native";
 import Weather from "../components/Weather";
 
 export default function Home() {
@@ -12,10 +12,3 @@ export default function Home() {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 2,
-    backgroundColor: "green",
-    alignItems: "center",
-  },
-});

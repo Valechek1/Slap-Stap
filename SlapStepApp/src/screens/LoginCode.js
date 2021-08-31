@@ -25,7 +25,7 @@ const LoginCode = () => {
   const onCodeInput = (code) => {
     setValue(code);
     if (code.length === CELL_COUNT) {
-      fetch("https://5f3a-89-208-20-134.ngrok.io/endAuth", {
+      fetch("https://light-puma-28.loca.lt/endAuth", {
         method: "POST",
         headers: {
           "Content-type": "application/json",

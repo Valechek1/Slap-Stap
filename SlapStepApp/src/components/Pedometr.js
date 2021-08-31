@@ -70,7 +70,16 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     alignItems: "center",
     backgroundColor: "#32cd32",
-    width: "90%",
+    width: "95%",
     borderRadius: 10,
+    shadowColor: "#708090",
+    shadowOffset: {
+      width: 0,
+      height: 6,
+    },
+    shadowOpacity: 0.39,
+    shadowRadius: 8.3,
+    elevation: 13,
+
   },
 });

@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     alignItems: "center",
     backgroundColor: "#32CD32",
-    width: "90%",
+    width: "95%",
     borderRadius: 10,
     shadowColor: "#708090",
     shadowOffset: {
@@ -99,18 +99,20 @@ const styles = StyleSheet.create({
     elevation: 13,
   },
   textMessage: {
+    width: "95%",
+
     fontWeight: "600",
     letterSpacing: 1.2,
-    fontWeight: "600",
     marginTop: 20,
     marginBottom: 20,
+    textAlign: "center",
   },
   boxWeatherRow: {
     flexDirection: "row",
     alignItems: "center",
   },
   textPogoda: {
-    fontSize: 30,
+    fontSize: 40,
     fontWeight: "900",
   },
 });
