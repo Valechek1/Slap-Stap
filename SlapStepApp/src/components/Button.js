@@ -20,18 +20,25 @@ export default function Button(props) {
 const styles = StyleSheet.create({
   appButtonContainer: {
     elevation: 8,
-    backgroundColor: "#009688",
+    backgroundColor: "wheat",
     borderRadius: 10,
     paddingVertical: 10,
     paddingHorizontal: 12,
     width: 160,
+    borderColor: "black",
+    borderStyle: "solid",
+    borderWidth: 1,
+    shadowColor: "black",
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.8,
+    shadowRadius: 5,
   },
   appButtonContainerDisabled: {
     backgroundColor: "#99fff5",
   },
   appButtonText: {
     fontSize: 18,
-    color: "#fff",
+    color: "#3A4257",
     fontWeight: "bold",
     alignSelf: "center",
     textTransform: "uppercase",
