@@ -1,4 +1,4 @@
-const HOST = "https://dfc4-89-208-20-134.ngrok.io";
+const HOST = "https://e461-89-208-20-134.ngrok.io";
 const API_KEY = "bd06a8223a71d916a111c9dc6b6eb29a";
 
 export const startAuth = async (phone) => {

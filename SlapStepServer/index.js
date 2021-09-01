@@ -1,30 +1,24 @@
 const express = require("express");
 const cors = require("cors");
-const uuid = require("uuid");
 const db = require("./db");
+const utils = require("./utils");
+
+require("dotenv").config();
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const generateRandomCode = () => {
-  return 12345;
-};
-
-const generateToken = () => {
-  return uuid.v4();
-};
-const sendSMS = (phone, code) => {
-  console.log(phone, code);
-};
-
 app.post("/authorisation", (req, res) => {
   const { phone } = req.body;
-  const code = generateRandomCode();
-  db.savePhoneCodeToDB(phone, code)
+  const formattedPhone = utils.reformatPhone(phone);
+
+  // console.log(phone);
+  const code = utils.generateRandomCode(formattedPhone);
+  db.savePhoneCodeToDB(formattedPhone, code)
     .then(() => {
-      sendSMS(phone, code);
+      utils.sendSMS(formattedPhone, code);
       res.json();
     })
     .catch((err) => {
@@ -32,28 +26,32 @@ app.post("/authorisation", (req, res) => {
     });
 });
 
-app.get("/steps/top",(req,res)=>{
+app.get("/steps/top", (req, res) => {
   getAuthorizedUser(req)
     .then((user) => {
       const amount = parseInt(req.query.amount || 10);
       db.getTopSteps(amount)
         .then((data) => {
-          res.json(data)
-        }).catch((err) => {
-          console.log(err)
+          res.json(data);
+        })
+        .catch((err) => {
+          console.log(err);
           res.status(500).json(err);
         });
-    }).catch((err) => res.status(401).json(err));
-})
+    })
+    .catch((err) => res.status(401).json(err));
+});
 
 app.post("/endAuth", (req, res) => {
   const { phone, code } = req.body;
-  console.log("Это телефон=", phone);
+  const formattedPhone = utils.reformatPhone(phone);
+
+  console.log("Это телефон=", formattedPhone);
   console.log("Это код=", code);
-  db.getAuthPair(phone, code)
+  db.getAuthPair(formattedPhone, code)
     .then(() => {
-      const token = generateToken();
-      db.createOrGetUser(phone, token).then((user) => {
+      const token = utils.generateToken();
+      db.createOrGetUser(formattedPhone, token).then((user) => {
         res.json({
           user,
           token,
@@ -70,9 +68,9 @@ const getAuthorizedUser = async (req) => {
   const token = req.get("Authorization");
 
   if (!token) {
-    res.status(401).json()
-    throw new Error('Unauthorized')
-  };
+    res.status(401).json();
+    throw new Error("Unauthorized");
+  }
 
   const user = await db.getUserByToken(token);
   return user;
@@ -81,11 +79,14 @@ const getAuthorizedUser = async (req) => {
 app.post("/steps", (req, res) => {
   const { steps, timestamp } = req.body;
 
-  getAuthorizedUser(req).then((user) => {
-    return db.storeStepsForUser(user.id, steps, timestamp)
-  }).then(()=>{
-    res.json();
-  }).catch((err) => res.status(401).json(err));
+  getAuthorizedUser(req)
+    .then((user) => {
+      return db.storeStepsForUser(user.id, steps, timestamp);
+    })
+    .then(() => {
+      res.json();
+    })
+    .catch((err) => res.status(401).json(err));
 });
 
 app.listen(4000, () => {
