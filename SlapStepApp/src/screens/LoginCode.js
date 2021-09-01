@@ -25,7 +25,7 @@ const LoginCode = () => {
   const onCodeInput = (code) => {
     setValue(code);
     if (code.length === CELL_COUNT) {
-      fetch("https://832d-89-208-20-134.ngrok.io/endAuth", {
+      fetch("https://dfc4-89-208-20-134.ngrok.io/endAuth", {
         method: "POST",
         headers: {
           "Content-type": "application/json",
