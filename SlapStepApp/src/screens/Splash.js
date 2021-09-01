@@ -8,7 +8,7 @@ const Splash = () => {
   const navigation = useNavigation();
 
   React.useEffect(() => {
-    // AsyncStorage.clear();
+    AsyncStorage.clear();
     AsyncStorage.getItem("token")
       .then((token) => {
         if (token) {
