@@ -2,9 +2,7 @@ const uuid = require("uuid");
 const twillio = require("twilio");
 
 const VERIFICATION_CODE_LENGTH = 5;
-const TEST_NUMBERS = process.env.TEST_NUMBERS
-  ? process.env.TEST_NUMBERS.split(",")
-  : [];
+const TEST_NUMBERS = ["+79991231212"];
 
 let twilioClient;
 
