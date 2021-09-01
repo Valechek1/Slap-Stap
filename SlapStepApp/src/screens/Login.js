@@ -1,51 +1,11 @@
 import { useNavigation } from "@react-navigation/native";
 import * as React from "react";
-import { Button, Text, StyleSheet, SafeAreaView } from "react-native";
 import styled from "styled-components/native";
 import { startAuth } from "../api";
-import {
-  CodeField,
-  Cursor,
-  useBlurOnFulfill,
-  useClearByFocusCell,
-} from "react-native-confirmation-code-field";
+import Button from "../components/Button";
+import { Image, StyleSheet, View } from "react-native";
 
-const styles = StyleSheet.create({
-  root: {
-    flex: 1,
-    padding: 20,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  title: { textAlign: "center", fontSize: 30 },
-  codeFieldRoot: { marginTop: 20 },
-  cell: {
-    width: 25,
-    height: 25,
-    lineHeight: 38,
-    fontSize: 19,
-    borderWidth: 1,
-    borderRadius: 10,
-    borderColor: "#00000030",
-    textAlign: "center",
-    paddingBottom: 40,
-    marginLeft: 5,
-  },
-  focusCell: {
-    borderColor: "#000",
-  },
-});
-
-const CELL_COUNT = 11;
-
-const Login = () => {
-  const [value, setValue] = React.useState("");
-  const ref = useBlurOnFulfill({ value, cellCount: CELL_COUNT });
-  const [props, getCellOnLayoutHandler] = useClearByFocusCell({
-    value,
-    setValue,
-  });
-
+const Login = (props) => {
   const navigation = useNavigation();
   const [phone, setPhone] = React.useState("");
   const [error, setError] = React.useState();
@@ -61,32 +21,80 @@ const Login = () => {
   }, [phone]);
 
   return (
-    <SafeAreaView style={styles.root}>
-      <CodeField
-        ref={ref}
-        {...props}
+    <Wrapper>
+      <PhoneInput
         value={phone}
-        onChangeText={setValue}
-        cellCount={CELL_COUNT}
-        rootStyle={styles.codeFieldRoot}
         keyboardType="number-pad"
-        textContentType="oneTimeCode"
         onChangeText={(v) => setPhone(v)}
-        placeholder="Phone here"
-        renderCell={({ index, symbol, isFocused }) => (
-          <Text
-            key={index}
-            style={[styles.cell, isFocused && styles.focusCell]}
-            onLayout={getCellOnLayoutHandler(index)}
-          >
-            {symbol || (isFocused ? <Cursor /> : null)}
-          </Text>
-        )}
+        placeholder="Введите номер телефона"
       />
-      {error && <Text>ERROR: {error.message}</Text>}
-      <Button title="Login" onPress={handleClick} />
-    </SafeAreaView>
+      {error && <ErrorText>ERROR: {error.message}</ErrorText>}
+      <Button
+        style={styles.stretbtn}
+        title="Login"
+        handleClick={handleClick}
+        disabled={!phone}
+      />
+      <View style={styles.stretch}>
+        <Image
+          style={styles.stretimage}
+          source={require("../../assets/MotivOne.png")}
+        />
+      </View>
+    </Wrapper>
   );
 };
+
+const Wrapper = styled.SafeAreaView`
+  flex: 2;
+  padding: 20px;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: #3a4257;
+`;
+
+const PhoneInput = styled.TextInput`
+  margin: 24px;
+  margin-bottom: 40px;
+  padding: 12px;
+  width: 90%;
+  border: 1px solid black;
+  border-radius: 6px;
+  color: black;
+  background-color: wheat;
+  box-shadow: 0 2px 2px black;
+`;
+
+const ErrorText = styled.Text`
+  margin-horizontal: 24px;
+  padding: 12px;
+  margin-bottom: 24px;
+  color: wheat;
+`;
+
+const styles = StyleSheet.create({
+  stretch: {
+    flex: 1,
+    alignItems: "center",
+    marginTop: 20,
+    width: "100%",
+    height: "100%",
+    resizeMode: "stretch",
+    borderRadius: 20,
+    shadowColor: "black",
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.8,
+    shadowRadius: 5,
+    marginTop: 40,
+  },
+  stretimage: {
+    width: "80%",
+    height: "80%",
+    borderRadius: 30,
+    borderColor: "black",
+    borderStyle: "solid",
+    borderWidth: 1,
+  },
+});
 
 export default Login;
