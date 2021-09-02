@@ -50,7 +50,7 @@ export default function Pedometr() {
         <Text style={styles.text}>Waiting for permissions</Text>
       )}
       {isPedometerAvailable === false && (
-        <Text style={styles.text}>Проблемы с получением инфы по шагам</Text>
+        <Text style={styles.text}></Text>
       )}
       <View>
         <Image
